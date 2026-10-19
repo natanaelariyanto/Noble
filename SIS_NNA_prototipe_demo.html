@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIS Noble National Academy — Prototipe</title>
+<style>
+:root{--navy:#14213d;--blue:#3157d5;--pale:#f3f6fc;--ink:#172033;--muted:#68738a;--line:#e4e9f2;--white:#fff;--green:#13845b;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--pale);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+.app{min-height:100vh;display:grid;grid-template-columns:245px 1fr}
+aside{background:var(--navy);color:white;padding:24px 16px}
+.brand{display:flex;gap:12px;align-items:center;padding:0 8px 28px;border-bottom:1px solid #ffffff24}
+.logo{width:42px;height:42px;border-radius:12px;background:#fff;color:var(--navy);display:grid;place-items:center;font-weight:800;font-size:17px}
+.brand h1{font-size:14px;margin:0 0 5px;line-height:1.35}.brand small{font-size:11px;color:#cbd5e1}
+.nav-title{font-size:10px;color:#9eacc7;text-transform:uppercase;letter-spacing:1.4px;margin:24px 10px 9px}
+nav button{display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;color:#d8e0ef;padding:12px;border-radius:9px;text-align:left;margin:3px 0;cursor:pointer;font-size:13px}
+nav button.active,nav button:hover{background:#ffffff19;color:white}nav button span{width:18px;text-align:center}
+aside .aside-note{font-size:11px;color:#cbd5e1;line-height:1.6;margin:28px 8px 0}
+main{min-width:0;padding:26px 30px 42px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:25px}
+.eyebrow{font-size:11px;color:var(--muted);margin-bottom:6px}.topbar h2{margin:0;font-size:25px;letter-spacing:-.5px}.user{background:white;border:1px solid var(--line);padding:9px 12px;border-radius:11px;font-size:12px;white-space:nowrap}
+.demo{background:#fff7e6;border:1px solid #f4d58d;color:#7b4d00;padding:12px 14px;border-radius:10px;font-size:12px;line-height:1.5;margin-bottom:20px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-bottom:22px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:18px}
+.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.stat-icon{background:#edf1ff;color:var(--blue);width:35px;height:35px;display:grid;place-items:center;border-radius:10px;font-size:17px}
+.stat strong{display:block;font-size:29px;margin:14px 0 5px}.stat small{color:var(--muted);font-size:11px}
+.panel{padding:0;overflow:hidden}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}.panel-head h3{font-size:15px;margin:0}.panel-head p{font-size:11px;color:var(--muted);margin:5px 0 0}
+.actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.search{border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-width:190px;font-size:12px;outline:none}.search:focus,input:focus,select:focus{border-color:var(--blue)}
+.btn{border:0;border-radius:8px;padding:10px 13px;font-weight:600;font-size:12px;cursor:pointer}.primary{background:var(--blue);color:white}.secondary{background:white;border:1px solid var(--line);color:var(--ink)}.danger{background:#fff0ef;color:var(--red)}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:610px}th,td{text-align:left;padding:14px 20px;border-bottom:1px solid #edf0f6;font-size:12px}th{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);background:#fbfcff}td .sub{color:var(--muted);font-size:11px;margin-top:4px}.pill{background:#e8f7ef;color:var(--green);padding:5px 8px;border-radius:20px;font-size:10px}.row-actions{display:flex;gap:6px}.mini{border:1px solid var(--line);background:white;border-radius:6px;padding:6px 8px;font-size:11px;cursor:pointer}
+.empty{padding:38px;text-align:center;color:var(--muted);font-size:13px}.foot{margin-top:17px;color:var(--muted);font-size:11px;line-height:1.6}
+.modal-backdrop{position:fixed;inset:0;background:#0b153a80;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal-backdrop.show{display:flex}.modal{width:min(500px,100%);background:white;border-radius:15px;padding:22px;box-shadow:0 20px 60px #0002}.modal h3{margin:0 0 6px;font-size:18px}.modal p{font-size:12px;color:var(--muted);margin:0 0 18px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:11px;color:var(--muted)}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:8px;padding:11px;font-size:12px;background:white}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+@media(max-width:850px){.app{grid-template-columns:1fr}aside{padding:14px}.brand{padding-bottom:14px}.nav-title,.aside-note{display:none}nav{display:flex;overflow:auto;margin-top:12px}nav button{width:auto;white-space:nowrap;margin-right:5px}main{padding:20px 15px}.cards{grid-template-columns:1fr 1fr}.topbar h2{font-size:21px}}
+@media(max-width:520px){.cards{grid-template-columns:1fr}.panel-head{align-items:flex-start;flex-direction:column}.search{min-width:0;width:100%}.actions{width:100%}.actions .btn{flex:1}.user{display:none}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand"><div class="logo">NNA</div><div><h1>Noble National Academy</h1><small>School Information System</small></div></div>
+  <div class="nav-title">Menu utama</div>
+  <nav id="nav">
+    <button class="active" data-page="dashboard"><span>▦</span> Dashboard</button>
+    <button data-page="students"><span>♙</span> Data Siswa</button>
+    <button data-page="teachers"><span>♧</span> Data Guru</button>
+    <button data-page="classes"><span>▤</span> Data Kelas</button>
+  </nav>
+  <p class="aside-note">Prototipe awal untuk membantu merancang sistem sekolah. Login dan database online belum diaktifkan.</p>
+</aside>
+<main>
+  <div class="topbar"><div><div class="eyebrow">SISTEM INFORMASI SEKOLAH / NNA</div><h2 id="pageTitle">Dashboard</h2></div><div class="user">◉ &nbsp; Mode demo · Admin</div></div>
+  <div class="demo"><strong>MODE DEMO — JANGAN MASUKKAN DATA SISWA ASLI.</strong> Data pada halaman ini hanya tersimpan di browser komputer ini. Belum online, belum memiliki login, dan belum aman untuk data sekolah sungguhan.</div>
+  <section id="dashboardPage">
+    <div class="cards">
+      <div class="stat"><div class="stat-top">Total Siswa <span class="stat-icon">♙</span></div><strong id="studentCount">0</strong><small>Data contoh / data demo</small></div>
+      <div class="stat"><div class="stat-top">Total Guru <span class="stat-icon">♧</span></div><strong id="teacherCount">0</strong><small>Data contoh / data demo</small></div>
+      <div class="stat"><div class="stat-top">Total Kelas <span class="stat-icon">▤</span></div><strong id="classCount">0</strong><small>Data contoh / data demo</small></div>
+    </div>
+    <div class="panel"><div class="panel-head"><div><h3>Selamat datang di SIS NNA</h3><p>Fondasi awal untuk pengelolaan data sekolah.</p></div></div><div style="padding:22px;font-size:13px;line-height:1.8;color:#566176">Gunakan menu di sebelah kiri untuk mencoba mengelola data siswa, guru, dan kelas. Setelah rancangan disetujui, tahap berikutnya adalah menyiapkan login pengguna, database online, hak akses, dan pencadangan data.</div></div>
+  </section>
+  <section id="dataPage" hidden>
+    <div class="panel">
+      <div class="panel-head"><div><h3 id="tableTitle">Data</h3><p id="tableSubtitle">Kelola data contoh.</p></div><div class="actions"><input id="search" class="search" placeholder="Cari data..." aria-label="Cari data"><button id="addBtn" class="btn primary">＋ Tambah Data</button></div></div>
+      <div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
+    </div>
+    <div class="foot">Semua data di sini adalah data demo dan disimpan hanya pada browser ini. Fitur ini belum memiliki akun pengguna, sinkronisasi online, atau pencadangan server.</div>
+  </section>
+</main>
+</div>
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal"><h3 id="modalTitle">Tambah data</h3><p>Isi formulir di bawah ini. Gunakan data fiktif untuk uji coba.</p><form id="dataForm"><div id="formFields" class="form-grid"></div><div class="modal-actions"><button type="button" id="cancelBtn" class="btn secondary">Batal</button><button class="btn primary" type="submit">Simpan</button></div></form></div>
+</div>
+<script>
+/* PROTOTIPE DEMO: data tersimpan di localStorage browser, bukan database online. */
+const seed = {
+ students:[
+  {name:"Contoh Siswa 01",id:"DEMO-001",grade:"Kelas 7A",status:"Aktif"},
+  {name:"Contoh Siswa 02",id:"DEMO-002",grade:"Kelas 8A",status:"Aktif"},
+  {name:"Contoh Siswa 03",id:"DEMO-003",grade:"Kelas 9A",status:"Aktif"}
+ ],
+ teachers:[
+  {name:"Contoh Guru 01",id:"G-DEMO-01",subject:"Informatika",status:"Aktif"},
+  {name:"Contoh Guru 02",id:"G-DEMO-02",subject:"Bahasa Inggris",status:"Aktif"}
+ ],
+ classes:[
+  {name:"Kelas 7A",level:"SMP",homeroom:"Contoh Guru 01",capacity:"24"},
+  {name:"Kelas 8A",level:"SMP",homeroom:"Contoh Guru 02",capacity:"24"},
+  {name:"Kelas 9A",level:"SMP",homeroom:"Belum ditentukan",capacity:"24"}
+ ]
+};
+const keys = ["students","teachers","classes"];
+let db = {};
+keys.forEach(k=>{try{db[k]=JSON.parse(localStorage.getItem("nna_demo_"+k))||seed[k]}catch(e){db[k]=seed[k]}});
+let current="dashboard", editingIndex=-1;
+const config={
+ students:{title:"Data Siswa",subtitle:"Contoh pengelolaan identitas dan kelas siswa.",fields:[["name","Nama siswa","text"],["id","NIS / ID demo","text"],["grade","Kelas","text"],["status","Status","select",["Aktif","Tidak aktif"]]],columns:[["name","Nama Siswa"],["id","NIS / ID"],["grade","Kelas"],["status","Status"]]},
+ teachers:{title:"Data Guru",subtitle:"Contoh pengelolaan data guru dan mata pelajaran.",fields:[["name","Nama guru","text"],["id","ID guru demo","text"],["subject","Mata pelajaran","text"],["status","Status","select",["Aktif","Tidak aktif"]]],columns:[["name","Nama Guru"],["id","ID Guru"],["subject","Mata Pelajaran"],["status","Status"]]},
+ classes:{title:"Data Kelas",subtitle:"Contoh pengelolaan rombongan belajar.",fields:[["name","Nama kelas","text"],["level","Jenjang","select",["TK","SD","SMP"]],["homeroom","Wali kelas","text"],["capacity","Kapasitas siswa","number"]],columns:[["name","Nama Kelas"],["level","Jenjang"],["homeroom","Wali Kelas"],["capacity","Kapasitas"]]}
+};
+function persist(){keys.forEach(k=>localStorage.setItem("nna_demo_"+k,JSON.stringify(db[k])));updateStats()}
+function updateStats(){document.getElementById("studentCount").textContent=db.students.length;document.getElementById("teacherCount").textContent=db.teachers.length;document.getElementById("classCount").textContent=db.classes.length}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function openPage(page){
+ current=page;
+ document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ const dash=page==="dashboard";document.getElementById("dashboardPage").hidden=!dash;document.getElementById("dataPage").hidden=dash;
+ document.getElementById("pageTitle").textContent=dash?"Dashboard":config[page].title;
+ if(!dash){document.getElementById("tableTitle").textContent=config[page].title;document.getElementById("tableSubtitle").textContent=config[page].subtitle;document.getElementById("search").value="";renderTable()}
+}
+function renderTable(){
+ const c=config[current], q=document.getElementById("search").value.toLowerCase();
+ document.getElementById("tableHead").innerHTML="<tr>"+c.columns.map(x=>"<th>"+esc(x[1])+"</th>").join("")+"<th>Aksi</th></tr>";
+ const filtered=db[current].map((r,i)=>({...r,_index:i})).filter(r=>c.columns.some(x=>String(r[x[0]]||"").toLowerCase().includes(q)));
+ document.getElementById("tableBody").innerHTML=filtered.length?filtered.map(r=>"<tr>"+c.columns.map(x=>`<td>${x[0]==="status"?`<span class="pill">${esc(r[x[0]])}</span>`:esc(r[x[0]])}</td>`).join("")+`<td><div class="row-actions"><button class="mini" onclick="editRow(${r._index})">Edit</button><button class="mini" onclick="deleteRow(${r._index})">Hapus</button></div></td></tr>`).join(""):`<tr><td colspan="${c.columns.length+1}" class="empty">Tidak ada data yang cocok.</td></tr>`;
+}
+function showModal(index=-1){
+ editingIndex=index;const c=config[current],record=index>=0?db[current][index]:{};
+ document.getElementById("modalTitle").textContent=index>=0?"Edit "+c.title:"Tambah "+c.title;
+ document.getElementById("formFields").innerHTML=c.fields.map(f=>`<div class="field ${f[0]==="name"?"full":""}"><label for="f_${f[0]}">${esc(f[1])}</label>${f[2]==="select"?`<select id="f_${f[0]}" name="${f[0]}" required>${f[3].map(v=>`<option ${record[f[0]]===v?"selected":""}>${esc(v)}</option>`).join("")}</select>`:`<input id="f_${f[0]}" name="${f[0]}" type="${f[2]}" value="${esc(record[f[0]]||"")}" ${f[0]==="capacity"?'min="1"':''} required>`}</div>`).join("");
+ document.getElementById("modalBackdrop").classList.add("show");
+}
+function editRow(i){showModal(i)}
+function deleteRow(i){if(confirm("Hapus data demo ini?")){db[current].splice(i,1);persist();renderTable()}}
+document.getElementById("nav").addEventListener("click",e=>{const b=e.target.closest("button[data-page]");if(b)openPage(b.dataset.page)});
+document.getElementById("search").addEventListener("input",renderTable);
+document.getElementById("addBtn").addEventListener("click",()=>showModal());
+document.getElementById("cancelBtn").addEventListener("click",()=>document.getElementById("modalBackdrop").classList.remove("show"));
+document.getElementById("modalBackdrop").addEventListener("click",e=>{if(e.target.id==="modalBackdrop")e.currentTarget.classList.remove("show")});
+document.getElementById("dataForm").addEventListener("submit",e=>{
+ e.preventDefault();const values=Object.fromEntries(new FormData(e.currentTarget).entries());
+ if(editingIndex>=0)db[current][editingIndex]={...db[current][editingIndex],...values};else db[current].push(values);
+ persist();renderTable();document.getElementById("modalBackdrop").classList.remove("show");
+});
+updateStats();
+</script>
+</body>
+</html>
